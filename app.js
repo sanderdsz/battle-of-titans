@@ -39,6 +39,12 @@ const app = Vue.createApp({
     },
   },
   methods: {
+    startNewGame() {
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
+      this.winner = null;
+      this.currentRound = 0;
+    },
     attackMonster() {
       this.currentRound++;
       // Attacks need to be a random number at least 5 points to maximum 12 points
