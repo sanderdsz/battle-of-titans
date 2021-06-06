@@ -36,7 +36,8 @@
         <h3 v-else>Draw!</h3>
         <button @click="startNewGame">Start New Game</button>
       </section>
-      <section id="controls">
+      <!--Hide de controls when game over container shows-->
+      <section id="controls" v-else>
         <button @click="attackMonster">ATTACK</button>
         <!--Special attack should happen only every 3 rounds-->
         <button
@@ -45,7 +46,7 @@
           SPECIAL ATTACK
         </button>
         <button @click="healPlayer">HEAL</button>
-        <button>SURRENDER</button>
+        <button @click="surrender">SURRENDER</button>
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>
