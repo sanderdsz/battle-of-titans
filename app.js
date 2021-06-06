@@ -8,7 +8,8 @@ const app = Vue.createApp({
       playerHealth: 100,
       monsterHealth: 100,
       currentRound: 0,
-      winner: null
+      winner: null,
+      logMessages: [],
     }
   },
   watch: {
@@ -50,17 +51,20 @@ const app = Vue.createApp({
       // Attacks need to be a random number at least 5 points to maximum 12 points
       const attackValue = getRandomValue(12, 5);
       this.monsterHealth -= attackValue;
+      this.addLogMessage('player', 'attack', attackValue);
       this.attackPlayer();
     },
     // Monster attack at least 8 points to maximum 15 points
     attackPlayer() {
       const attackValue = getRandomValue(15, 8);
       this.playerHealth -= attackValue;
+      this.addLogMessage('monster', 'attack', attackValue);
     },
     specialAttackMonster() {
       this.currentRound++;
       const attackValue = getRandomValue(10, 25);
       this.monsterHealth -= attackValue;
+      this.addLogMessage('player', 'attack', attackValue);
       this.attackPlayer();
     },
     healPlayer() {
@@ -72,10 +76,19 @@ const app = Vue.createApp({
       } else {
         this.playerHealth += healValue;
       }
+      this.addLogMessage('player', 'heal', healValue);
       this.attackPlayer();
     },
     surrender() {
       this.winner = 'monster';
+    },
+    addLogMessage(who, what, value) {
+      // Add the message at the END of the array
+      this.logMessages.unshift({
+        actionBy: who,
+        actionType: what,
+        actionValue: value
+      });
     }
   }
 })
