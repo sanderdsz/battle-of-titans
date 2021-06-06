@@ -19,7 +19,7 @@ const app = Vue.createApp({
     },
     mayUseSpecialAttack() {
       return this.currentRound % 3 !== 0;
-    }
+    },
   },
   methods: {
     attackMonster() {
@@ -38,6 +38,17 @@ const app = Vue.createApp({
       this.currentRound++;
       const attackValue = getRandomValue(10, 25);
       this.monsterHealth -= attackValue;
+      this.attackPlayer();
+    },
+    healPlayer() {
+      this.currentRound++;
+      const healValue = getRandomValue(8, 20);
+      // Checks the health to not surpass 100 points
+      if (this.playerHealth + healValue > 100) {
+        this.playerHealth = 100;
+      } else {
+        this.playerHealth += healValue;
+      }
       this.attackPlayer();
     }
   }
